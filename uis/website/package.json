@@ -1,0 +1,10 @@
+{
+  "name": "@healthcore/website",
+  "private": true,
+  "description": "HealthCore public website (Milestone 1): static HTML + Tailwind CSS. No dependencies.",
+  "type": "module",
+  "scripts": {
+    "start": "npx --yes http-server . -p 3000 -a 0.0.0.0 -c-1",
+    "test": "node --test"
+  }
+}
