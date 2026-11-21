@@ -20,6 +20,10 @@ Alcances: `always` = se carga en cada sesión; `path` = se carga cuando se tocan
 | --- | --- |
 | [`pre-pr-delivery-check`](./skills/pre-pr-delivery-check/SKILL.md) | Verificar que una rama está lista para abrir un PR contra `main` |
 | [`update-memory-bank`](./skills/update-memory-bank/SKILL.md) | Registrar en `memory-bank/` lo que cambió tras un trabajo |
+| [`seo-check`](./skills/seo-check/SKILL.md) | Auditar y corregir el SEO técnico de `uis/website`: metadatos, hreflang EN/ES, Schema.org, Lighthouse/PageSpeed ≥ 80 |
+| [`accessibility-check`](./skills/accessibility-check/SKILL.md) | Auditar y corregir la accesibilidad (WCAG 2.2 AA) en `uis/`: semántica, teclado, formularios, contraste, EN/ES |
+
+Claude Code carga estas skills desde [`../.claude/skills/`](../.claude/skills/), que contiene enlaces simbólicos a esta carpeta (una sola fuente de verdad). Los demás agentes las leen a través de `AGENTS.md`.
 
 > No confundir con [`../skills/`](../skills/README.es.md), que guarda skills para los agentes del **producto** (p. ej. `agents/appointment-agent`).
 
