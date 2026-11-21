@@ -16,6 +16,14 @@ globs: ["uis/**"]
 4. Las fechas se muestran en la zona horaria de la clínica, no en la del navegador.
 5. Comandos: `pnpm lint`, `pnpm typecheck` (`tsc --noEmit`), `pnpm dev` (puerto 3000).
 
+## Excepción: `uis/website/` en el Hito 1 (fundamentos web)
+
+Autorizada por el estudiante el 2026-11-20. El hito exige un sitio **estático**: `index.html`, `application.html` y `validation.js`, más sus versiones `.es.html`, con Tailwind CSS (Play CDN con versión fija) y JavaScript sin build. Mientras dure esa versión:
+
+- Los puntos 1, 3 y 5 de "Común a ambos proyectos" (Next.js, cliente `src/lib/api.ts`, comandos pnpm) **no aplican** a `uis/website/`.
+- Se mantienen: copy fiel al briefing, sin datos de paciente persistidos ni enviados (el formulario solo simula el envío), sin analítica de terceros y tests con `node --test`.
+- La migración a Next.js se hará en un hito posterior. Cuando ocurra, borra esta sección.
+
 ## `uis/website/`: web pública
 
 - La home vive en `/` (`app/page.tsx`). El copy sale del briefing: citas en el mismo día, horario ampliado, personal bilingüe, 12 clínicas en Texas, Florida, Georgia, Londres y Mánchester.
