@@ -20,7 +20,8 @@ Definido en [`.devcontainer/devcontainer.json`](../.devcontainer/devcontainer.js
 | Capa | Tecnología | Estado |
 | --- | --- | --- |
 | Backend | **FastAPI** (Python 3.12), una sola app central | [DECIDIDO]: recomendación del template (`README.md` → `services/`) y principio 3 de `projectbrief.md` |
-| Frontends | **Next.js** (App Router) + TypeScript | [PROPUESTO]: lo indica el programa para los hitos de UI; no se crea en este hito |
+| Frontends | **Next.js** (App Router) + TypeScript | [PROPUESTO]: lo indica el programa para los hitos de UI posteriores |
+| `uis/website` (Hito 1) | **HTML estático + Tailwind CSS v4** (Play CDN `@tailwindcss/browser@4.1.18`) + JS con módulos ES, sin build ni dependencias | [DECIDIDO] 2026-11-20: el Hito 1 exige `index.html`/`application.html`/`validation.js`. Excepción documentada en `.agents/rules/uis-frontends.md` |
 | Tipos compartidos | `@repo/shared-types` en `packages/shared/` | [DECIDIDO]: existe en el repo |
 | Automatización | **n8n** (puerto 5678) para recordatorios programados y orquestación | [PROPUESTO] |
 | Agentes | Python, a partir de `agents/_template/` | [DECIDIDO]: estructura del template |
@@ -37,7 +38,7 @@ Este mapa es **obligatorio** para personas y agentes. Se basa en el `README.md` 
 | Ruta | Qué va aquí cuando se cree | HealthCore concreto |
 | --- | --- | --- |
 | `uis/` | Todos los frontends | — |
-| `uis/website/` | Web pública corporativa. Home en `/`; marca y copy salen del briefing | Propuesta de valor (citas en el mismo día, horario ampliado, bilingüe), las 12 clínicas, **flujo público de reserva online**. Idiomas: `en` y `es` (EE.UU.), `en-GB` (Reino Unido). **Sin datos de paciente fuera del flujo de reserva.** |
+| `uis/website/` | Web pública corporativa. Home en `/`; marca y copy salen del briefing | **Hito 1 (hecho):** landing EN/ES con las 6 clínicas de EE. UU. del briefing del hito (`uis/website/BRIEFING.md`; las de Reino Unido quedan fuera de la web pública) y formulario de consulta para pacientes con envío simulado. A futuro: **flujo público de reserva online** contra `services/api`. **Sin datos de paciente fuera del formulario/flujo de reserva.** |
 | `uis/backoffice/` | App interna con **layout propio**; vista de entrada en `/` | Agenda por sede para recepción, vista de historia unificada para clínicos y dashboard de citas/no-shows por sede |
 | `services/` | APIs y servicios backend | — |
 | `services/api/` | **La** API central FastAPI con routers por dominio | Routers: `clinics`, `patients`, `appointments`, `availability`. Adaptadores EHR en `services/api/app/integrations/ehr_us/` y `ehr_uk/`. Middleware de auditoría de acceso a datos de pacientes. |
@@ -51,7 +52,8 @@ Este mapa es **obligatorio** para personas y agentes. Se basa en el `README.md` 
 | `docs/` | Arquitectura y ADRs | ADRs de cumplimiento (HIPAA / UK GDPR) |
 | `infra/` | Dockerfiles, CI, deploy | — |
 | `memory-bank/` | Contexto persistente para agentes de código | Este archivo y sus hermanos |
-| `.agents/rules/`, `.agents/skills/` | Reglas y skills para los **agentes de código que trabajan en este repo** | Distinto de `skills/` (ver abajo) |
+| `.agents/rules/`, `.agents/skills/` | Reglas y skills para los **agentes de código que trabajan en este repo** | Skills: `pre-pr-delivery-check`, `update-memory-bank`, `seo-check`, `accessibility-check`. Distinto de `skills/` (ver abajo) |
+| `.claude/skills/` | Solo **enlaces simbólicos** a `.agents/skills/*` para que Claude Code cargue las skills | No se editan aquí: la fuente única es `.agents/skills/` |
 
 **Carpetas prohibidas** (no crear árboles paralelos): `apps/`, `frontend/`, `backend/`, `api/` en la raíz, `src/` en la raíz, `web/`, `server/`, ni un segundo FastAPI fuera de `services/api/`.
 
@@ -87,7 +89,8 @@ Código, identificadores, rutas de API y nombres de campos en **inglés**; docum
 | Proyecto | Instalar | Lint/format | Tests/typecheck | Ejecutar |
 | --- | --- | --- | --- | --- |
 | `services/api` | `uv sync` | `uv run ruff format --check . && uv run ruff check .` | `uv run pytest` | `uv run fastapi dev app/main.py` (puerto 8000) |
-| `uis/website`, `uis/backoffice` | `pnpm install` | `pnpm lint` | `pnpm typecheck` | `pnpm dev` (puerto 3000) |
+| `uis/website` (Hito 1, estático) | — (sin dependencias) | n/a (sin configurar) | `cd uis/website && node --test` | `npx http-server uis/website -p 3000 -a 0.0.0.0 -c-1` desde la raíz (puerto 3000) |
+| `uis/backoffice` | `pnpm install` | `pnpm lint` | `pnpm typecheck` | `pnpm dev` (puerto 3000) |
 | `agents/appointment-agent` | `uv sync` | `uv run ruff check .` | `uv run pytest tests/` | — |
 
 Mientras un proyecto no exista, su fila es **[PROPUESTO]**; al crearlo, actualiza la fila con los comandos reales.

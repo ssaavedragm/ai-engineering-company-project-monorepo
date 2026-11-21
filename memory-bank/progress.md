@@ -11,7 +11,7 @@
 | Infraestructura de agentes | ✅ `memory-bank/`, `AGENTS.md`, `.agents/rules/`, `.agents/skills/` (Hito 4) |
 | `CONTEXT.md` | ⚠️ Todavía es el placeholder del template |
 | `services/api` | ⬜ No existe |
-| `uis/website` | ⬜ No existe |
+| `uis/website` | 🟡 Hito 1 implementado en `feature/website-fundamentals`: landing y formulario de consulta EN/ES, estático + Tailwind; PR pendiente |
 | `uis/backoffice` | ⬜ No existe |
 | `agents/appointment-agent` | ⬜ No existe (idea definida en `company-choice.md`) |
 | Datos sintéticos (`data/`) | ⬜ No existen |
@@ -23,10 +23,11 @@
 - `packages/shared` (`@repo/shared-types`) con los tipos base `Id` y `BaseEntity`, sin tipos de dominio todavía.
 - Devcontainer con Python 3.12 + uv, Node 22 + pnpm, Docker.
 - Infraestructura de agentes del Hito 4 (ver bitácora).
+- `uis/website`: landing (`index.html`, `index.es.html`) y formulario de consulta (`application.html`, `application.es.html`) con validación en `validators.js` + `validation.js` y 21 tests (`node --test`). Lighthouse en local: rendimiento 97–98, accesibilidad, buenas prácticas y SEO 100. Auditado con `seo-check` (todos los checks ✅) y `accessibility-check` (axe-core WCAG 2.2 AA en los estados inicial, errores, campos condicionales y éxito, más teclado y reflow: 74/74).
 
 ## En curso
 
-- Hito 4: PR de `feature/agent-memory-bank` → `main`.
+- Hito 1 (fundamentos web): PR de `feature/website-fundamentals` → `main`. Falta exponer el puerto 3000 como público en Codespaces y adjuntar la URL y la captura de PageSpeed/Lighthouse (≥ 80) al PR.
 
 ## Siguientes pasos (en orden)
 
@@ -36,7 +37,7 @@
 4. **Script de datos sintéticos** en `scripts/` → `data/raw/` (citas con estado `no_show` para calcular la línea base del 22%).
 5. Router `appointments` + `availability` y middleware de auditoría.
 6. `agents/appointment-agent` desde `agents/_template/`.
-7. `uis/website` (home + reserva) y `uis/backoffice` (agenda por sede).
+7. `uis/website`: migrar a Next.js y convertir el formulario de consulta en el flujo de reserva contra la API. `uis/backoffice`: agenda por sede.
 
 ## Decisiones abiertas
 
@@ -45,5 +46,7 @@
 
 ## Bitácora
 
+- **2026-11-20 · feature/website-fundamentals** · Se añaden las skills `seo-check` y `accessibility-check` (WCAG 2.2 AA) en `.agents/skills/`, y `.claude/skills/` con enlaces simbólicos a las 4 skills para que Claude Code las cargue (autorizado por el estudiante). · Seguir de forma reproducible los criterios de SEO y accesibilidad que evalúa el Hito 1 y los siguientes hitos de UI.
+- **2026-11-20 · feature/website-fundamentals** · Se crea `uis/website` con HTML estático + Tailwind (Play CDN con versión fija): landing y formulario de consulta para pacientes en inglés y español, Schema.org `MedicalOrganization` + 6 `MedicalClinic`, validación en tiempo real de las 10 reglas del briefing del hito (`uis/website/BRIEFING.md`) y tests con `node --test`. Se añade una excepción del Hito 1 a `.agents/rules/uis-frontends.md` (autorizada por el estudiante). · Hito 1: primera presencia web de HealthCore y captura estructurada de consultas para recepción.
 - **2026-11-14 · feature/agent-memory-bank** · Se crean `memory-bank/` (projectbrief, techContext, progress), `AGENTS.md`, `CLAUDE.md`, `.agents/rules/` (estructura del monorepo, protección de datos, convenciones de `services/` y `uis/`, dominio de citas) y `.agents/skills/` (`pre-pr-delivery-check`, `update-memory-bank`). · Hito 4: dar a los agentes de código contexto persistente y guardarraíles alineados con HealthCore antes de escribir código de producto.
 - **2026-10-28 · main** · Elección de HealthCore, briefing y definición de la idea del agente de citas.
