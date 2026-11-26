@@ -2,7 +2,7 @@
 
 ## Hito 1: Sitio web público de tu empresa
 
-_These instructions are [available in English](./healthcore-BRIEFING.en.md)._
+_These instructions are [available in English](./BRIEFING.en.md)._
 
 > Este documento describe tu empresa y la situación específica para la que estás construyendo este hito. Léelo completo antes de escribir cualquier código. Todo lo que construyas debe reflejar este contexto.
 
